@@ -16,10 +16,11 @@
 
      [:body
       [:p "I'm the body!"]
-      ;[:script {:src "http://code.jquery.com/jquery-1.11.1.js"}]
+      [:button {:id "clickme"
+                :type "button"} "Click me!"]
+      [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
       [:script {:src "/js/cljs.js"}]
-      ;[:script "clj_test_website.avatars.init();"]
-      ]))
+      [:script "clj_mini_apps.splash.init();"]]))
 
 (defroutes main-routes
   (GET "/" []
