@@ -1,7 +1,6 @@
 (ns clj-mini-apps.server
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
-            [ring.util.response :as response]
             [hiccup.core :refer :all]
             [hiccup.def :refer [defhtml]]
             [compojure.core :refer :all]
