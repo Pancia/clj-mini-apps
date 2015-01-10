@@ -5,7 +5,7 @@
 
 (defn ^:export init []
   (if (and js/document (.-getElementById js/document))
-    (do (log "spash init")
+    (do (log "splash init")
         (jq/bind ($ "#clickme") :click
                  #(set! (.-location js/window)
                         "http://localhost:3000/games/tic-tac-toe")))
