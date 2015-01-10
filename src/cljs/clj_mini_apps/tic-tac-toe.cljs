@@ -11,14 +11,16 @@
     (do (log "ttt init")
         (canvas/add-entity monet-canvas :background
           (canvas/entity {:x 0 :y 0 :w 600 :h 600}
-                  (fn [ctx val]
-                    (-> ctx
-                      (canvas/circle {:x 100 :y 100 :r 100})))
+                  nil
                   (fn [ctx val]
                     (-> ctx
                       (canvas/fill-style "#d1d1d2")
                       (canvas/fill-rect val)
                       (canvas/fill-style "#FFFFFF")
                       (canvas/fill-rect {:x 9 :y 9 :w 582 :h 582})
-                      (canvas/stroke-style "#d1d1d2")
-                      (canvas/circle {:x 100 :y 100 :r 100}))))))))
+                      (canvas/fill-style "#000")
+                      (canvas/fill-rect {:x 220 :y 79 :w 9 :h 441})
+                      (canvas/fill-rect {:x 370 :y 79 :w 9 :h 441})
+                      (canvas/fill-rect {:x 79 :y 220 :w 441 :h 9})
+                      (canvas/fill-rect {:x 79 :y 370 :w 441 :h 9})
+                      )))))))
