@@ -7,5 +7,6 @@
   (if (and js/document (.-getElementById js/document))
     (do (log "spash init")
         (jq/bind ($ "#clickme") :click
-                 (fn [e] (log "my butt"))))
+                 #(set! (.-location js/window)
+                        "http://localhost:3000/games/tic-tac-toe")))
     (do (log "failed to init splash"))))
