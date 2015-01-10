@@ -6,4 +6,5 @@
    [:title "Tic Tac Toe"]]
 
   [:body
-   [:p "I'm the body, for ttt"]])
+   [:h1 "Tic Tac Toe"]
+   [:canvas {:id "canvas"}]])
