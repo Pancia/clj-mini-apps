@@ -8,7 +8,7 @@
 
   [:body
    [:h1 {:style "color:white;
-                text-align:center"} "Tick Tac Toe"
+                text-align:center"} "Tic Tac Toe"
     [:canvas {:id "canvas"
               :width 600
               :height 600

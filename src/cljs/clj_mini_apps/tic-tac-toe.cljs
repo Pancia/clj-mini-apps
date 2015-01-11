@@ -9,11 +9,19 @@
     (do (log "ttt init"))))
 
 (defn draw []
-  (q/background 128 3 235)
-  (q/fill 128 0 128)
-  (q/ellipse 56 46 55  55))
+  ;Create background and outline
+  (q/background 209 209 210)
+  (q/fill 255)
+  (q/no-stroke)
+  (q/rect 9 9 582 582)
+  ;Create tic tac toe grid
+  (q/fill 0)
+  (q/rect 220 79 9 441)
+  (q/rect 370 79 9 441)
+  (q/rect 79 220 441 9)
+  (q/rect 79 370 441 9))
 
 (q/defsketch hello
   :draw draw
   :host "canvas"
-  :size [300 300])
+  :size [600 600])
