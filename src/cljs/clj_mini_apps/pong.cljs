@@ -19,8 +19,6 @@
 (def ball-speed 2)
 
 (defn init-game []
-  (log "init-game")
-
   (do
     (q/rect-mode :corner)
     ;Create background and outline
@@ -80,18 +78,26 @@
 (defn on-collision [state]
   (let [ball-x (:x (:ball state))
         ball-y (:y (:ball state))
-        top-wall (+ 9 7.5)
-        btm-wall (- 490 7.5)
-        new-y-dir (if (= + (:y-dir (:ball state))) - +)]
-    ;Check wall collision
-    (if (not (and (> ball-y top-wall)
-                  (< ball-y btm-wall)))
-      (as-> state state
-        (assoc-in state [:ball :y-dir] new-y-dir)
-        (if (= (:y-dir (:ball state)) +)
-          (assoc-in state [:ball :y] top-wall)
-          (assoc-in state [:ball :y] btm-wall)))
-      state)))
+        top-wall (+ 2 (+ 9 7.5))
+        btm-wall (- (- 490 7.5) 2)
+        not-dir #({+ -, - +} %)]
+    (cond
+      ;;check w/ top/btm walls
+      (not (and (> ball-y top-wall)
+                (< ball-y btm-wall)))
+      (update-in state [:ball :y-dir] not-dir)
+
+      ;;check w/ player paddle
+      (< ball-x (+ (:x (:player state))
+                   paddle-width))
+      (update-in state [:ball :x-dir] not-dir)
+
+      ;;check w/ cpu paddle
+      (> ball-x (- (:x (:computer state))
+                   paddle-width))
+      (update-in state [:ball :x-dir] not-dir)
+
+      :else state)))
 
 (defn draw-game
   [state]
