@@ -63,10 +63,10 @@
     (if (> (:y (state :ball)) cpu-y)
       (if (>= (+ half-height cpu-y speed) 490)
               (assoc-in state [:cpu :y] (- 489.5 half-height))
-              (update-in state [:cpu :y] + speed))
+              (update-in state [:cpu :y] + (/ speed 2)))
       (if (<= (- cpu-y half-height speed) 9)
               (assoc-in state [:cpu :y] (+ half-height 8.5))
-              (update-in state [:cpu :y] - speed)))))
+              (update-in state [:cpu :y] - (/ speed 2))))))
 
 (defn start-game
   [state]
