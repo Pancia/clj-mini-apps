@@ -36,7 +36,6 @@
   (let [deg (rand-nth (concat (range 135 225)
                               (range 0 45)
                               (range 315 359)))]
-    (log (str deg \- (apply str (take 4 (str (q/radians deg))))))
     {:player {:x 59 :y 250}
      :cpu    {:x 1040 :y 250}
      :ball   {:x 550 :y 250
@@ -62,12 +61,12 @@
   (let [half-height (/ paddle-height 2)
         cpu-y (:y (:cpu state))]
     (if (> (:y (state :ball)) cpu-y)
-      (if (>= (+ half-height cpu-y) speed) 490)
+      (if (>= (+ half-height cpu-y speed) 490)
               (assoc-in state [:cpu :y] (- 489.5 half-height))
               (update-in state [:cpu :y] + speed))
       (if (<= (- cpu-y half-height speed) 9)
               (assoc-in state [:cpu :y] (+ half-height 8.5))
-              (update-in state [:cpu :y] - speed))))
+              (update-in state [:cpu :y] - speed)))))
 
 (defn start-game
   [state]
