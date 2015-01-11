@@ -84,7 +84,7 @@
         btm-wall (- 490 7.5)
         new-y-dir (if (= + (:y-dir (:ball state))) - +)]
     ;Check wall collision
-    (if (not (and (> ball-y top-wall)
+    (if (not (and (> ball-y top-wall)
                   (< ball-y btm-wall)))
       (as-> state state
         (assoc-in state [:ball :y-dir] new-y-dir)
