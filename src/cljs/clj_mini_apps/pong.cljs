@@ -16,8 +16,6 @@
 
 (def speed 7)
 
-(def ball-speed 2)
-
 (defn init-game []
   (do
     (q/rect-mode :corner)
@@ -36,8 +34,10 @@
     (q/ellipse 550 250 ball-size ball-size))
 
   {:player {:x 59 :y 250}
-   :computer {:x 1040 :y 250}
-   :ball {:x 550 :y 250}
+   :cpu    {:x 1040 :y 250}
+   :ball   {:x 550 :y 250
+            :dx (+ 1 (rand-nth (range 3)))
+            :dy (+ 1 (rand-nth (range 3)))}
    :is-running? false})
 
 (defn move-player-paddle
@@ -49,7 +49,7 @@
 (defn start-game
   [state]
   (do (jq/html ($ "#pong-status") ""))
-  (if (= 2 (count (:ball state)))
+  (if (not (#{:x-dir :y-dir} (keys (:ball state))))
     (as-> state state
       (assoc-in state [:ball :x-dir] (rand-nth [+ -]))
       (assoc-in state [:ball :y-dir] (rand-nth [+ -]))
@@ -60,8 +60,8 @@
   [state]
   (if (:is-running? state)
     (as-> state state
-      (update-in state [:ball :y] (:y-dir (:ball state)) ball-speed)
-      (update-in state [:ball :x] (:x-dir (:ball state)) ball-speed))
+      (update-in state [:ball :y] (:y-dir (:ball state)) (:dy (:ball state)))
+      (update-in state [:ball :x] (:x-dir (:ball state)) (:dx (:ball state))))
     state))
 
 (defn handle-input
@@ -75,7 +75,8 @@
     :r (init-game)
     state))
 
-(defn on-collision [state]
+(defn on-collision
+  [state]
   (let [ball-x (:x (:ball state))
         ball-y (:y (:ball state))
         top-wall (+ 9 7.5 2)
@@ -88,17 +89,17 @@
       (update-in state [:ball :y-dir] not-dir)
 
       ;;check w/ player paddle
-      (and (< ball-x (+ (:x (:player state))
-                        paddle-width))
-           (< ball-y (+ (:y (:player state))
-                        50))
-           (> ball-y (- (:y (:player state))
-                        50)))
+      (and (< ball-x (+ (:x (:player state)) paddle-width))
+           (> ball-x (- (:x (:player state)) paddle-width))
+           (< ball-y (+ (:y (:player state)) 50))
+           (> ball-y (- (:y (:player state)) 50)))
       (update-in state [:ball :x-dir] not-dir)
 
       ;;check w/ cpu paddle
-      (> ball-x (- (:x (:computer state))
-                   paddle-width))
+      (and (> ball-x (- (:x (:cpu state)) paddle-width))
+           (< ball-x (+ (:x (:cpu state)) paddle-width))
+           (< ball-y (+ (:y (:cpu state)) 50))
+           (> ball-y (- (:y (:cpu state)) 50)))
       (update-in state [:ball :x-dir] not-dir)
 
       :else state)))
@@ -115,8 +116,8 @@
 
   (q/rect ((state :player) :x)
           ((state :player) :y) paddle-width paddle-height)
-  (q/rect ((state :computer) :x)
-          ((state :computer) :y) paddle-width paddle-height)
+  (q/rect ((state :cpu) :x)
+          ((state :cpu) :y) paddle-width paddle-height)
   (q/ellipse ((state :ball) :x)
              ((state :ball) :y) ball-size ball-size))
 
