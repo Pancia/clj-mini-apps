@@ -1,7 +1,7 @@
 (ns clj-mini-apps.brutish-pong
 	(:require [hiccup.def :refer [defhtml]]))
 
-(defhtml pong []
+(defhtml brutish-pong []
   [:head
    [:title "Pong"]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
