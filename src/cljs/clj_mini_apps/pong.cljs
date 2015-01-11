@@ -1,7 +1,7 @@
 (ns clj-mini-apps.pong
   (:require [quil.core :as q :include-macros true]
             [quil.middleware :as m]
-            [jayq.core :refer [$]]
+            [jayq.core :as jq :refer [$]]
             [jayq.util :refer [log]]))
 
 (defn ^:export init []
@@ -11,6 +11,8 @@
 (def ball-size 15)
 
 (def paddle-width 20)
+
+(def paddle-height 100)
 
 (def speed 7)
 
@@ -31,8 +33,8 @@
     ;Create paddles and ball
     (q/fill 0)
     (q/rect-mode :center)
-    (q/rect 59 250 20 100)
-    (q/rect 1040 250 20 100)
+    (q/rect 59 250 paddle-width paddle-height)
+    (q/rect 1040 250 paddle-width paddle-height)
     (q/ellipse 550 250 ball-size ball-size))
 
   {:player {:x 59 :y 250}
@@ -42,14 +44,13 @@
 
 (defn move-player-paddle
   [state direction]
-  ;(log "move-player-paddle")
   (if (= direction :down)
     (update-in state [:player :y] + speed)
     (update-in state [:player :y] - speed)))
 
 (defn start-game
   [state]
-  ;(log "start-game")
+  (do (jq/html ($ "#pong-status") ""))
   (if (= 2 (count (:ball state)))
     (as-> state state
       (assoc-in state [:ball :x-dir] (rand-nth [+ -]))
@@ -59,15 +60,14 @@
 
 (defn update-ball
   [state]
-  ;(log "update-ball")
   (if (:is-running? state)
     (as-> state state
       (update-in state [:ball :y] (:y-dir (:ball state)) ball-speed)
       (update-in state [:ball :x] (:x-dir (:ball state)) ball-speed))
     state))
 
-(defn handle-input [state]
-  ;(log "handle-input")
+(defn handle-input 
+  [state]
   (condp = (q/key-as-keyword)
     :w (move-player-paddle state :up)
     :s (move-player-paddle state :down)
@@ -95,8 +95,6 @@
 
 (defn draw-game
   [state]
-  ;(log "draw-game")
-
   (do
     (q/rect-mode :corner)
     (q/fill 255)
@@ -112,12 +110,29 @@
   (q/ellipse ((state :ball) :x)
              ((state :ball) :y) ball-size ball-size))
 
+(defn get-winner 
+  [state]
+  (let [ball-x (:x (state :ball))]
+    (if (< ball-x 0)
+      "The CPU"
+      (if (> ball-x 1099)
+        "You"))))
+
+(defn check-win 
+  [state]
+  (if-let [winner (get-winner state)]
+    (do (jq/html ($ "#pong-status")
+                 (str winner " Won! Press space to start a new game..."))
+    (init-game))
+    state))
+
 (defn update-game
   [state]
   (if (:is-running? state)
     (-> state
         (update-ball)
-        (on-collision))
+        (on-collision)
+        (check-win))
     state))
 
 (q/defsketch pong-canvas
