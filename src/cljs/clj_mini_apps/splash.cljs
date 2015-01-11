@@ -1,6 +1,7 @@
 (ns clj-mini-apps.splash
   (:require [jayq.core :as jq :refer [$]]
-            [jayq.util :refer [log]]))
+            [jayq.util :refer [log]]
+            #_[ajax.core :refer :all]))
 
 (defn ^:export init []
   (if (and js/document (.-getElementById js/document))
