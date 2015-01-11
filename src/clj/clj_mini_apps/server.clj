@@ -6,6 +6,7 @@
             [compojure.core :refer :all]
 
             [clj-mini-apps.splash :refer [splash]]
+            [clj-mini-apps.pong :refer [pong]]
             [clj-mini-apps.tic-tac-toe :refer [tic-tac-toe]]
             [clj-mini-apps.games :refer [games]]))
 
@@ -18,6 +19,9 @@
 
   (GET "/games" []
     (games))
+
+  (GET "/games/pong" []
+    (pong))
 
   (route/resources "/")
 

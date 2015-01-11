@@ -4,8 +4,5 @@
 
 (defn ^:export init []
   (if (and js/document (.-getElementById js/document))
-    (do (log "splash init")
-        (jq/bind ($ "#clickme") :click
-                 #(set! (.-location js/window)
-                        "http://localhost:3000/games")))
+    (do (log "splash init"))
     (do (log "failed to init splash"))))

@@ -143,8 +143,7 @@
       (do (move-player [mx my] [tx ty])
           (move-cpu)))))
 
-(q/defsketch hello
-  :host "canvas"
+(q/defsketch ttt-canvas
   :size [600 600]
   :setup init-board
   :mouse-pressed play-ttt!)

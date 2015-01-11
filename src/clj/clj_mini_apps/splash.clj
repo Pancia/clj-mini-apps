@@ -23,7 +23,7 @@
           [:a {:href ""} "Gallery"]]
         [:li {:role "presentation"}
           [:a {:href ""} "About Us"]]]]
-    [:p {:style "color:black"} "I'm the body!"]
+    [:p {:style "color:black"} "Welcome to the home page!"]
     [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
     [:script {:src "/js/bootstrap.min.js"}]
     [:script {:src "/js/cljs.js"}]
