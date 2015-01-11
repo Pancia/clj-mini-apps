@@ -46,6 +46,10 @@
     (update-in state [:player :y] + speed)
     (update-in state [:player :y] - speed)))
 
+(defn move-cpu-paddle
+  [state]
+  )
+
 (defn start-game
   [state]
   (do (jq/html ($ "#pong-status") ""))
@@ -142,6 +146,7 @@
   (if (:is-running? state)
     (-> state
         (update-ball)
+        (move-cpu-paddle)
         (on-collision)
         (check-win))
     state))
