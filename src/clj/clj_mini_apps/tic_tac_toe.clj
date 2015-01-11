@@ -25,6 +25,8 @@
              :style "margin-left:auto;
                      margin-right:auto;
                      display:block"}]
+   [:h3 {:id "ttt-status"
+        :style "text-align:center"} ""]
    [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
    [:script {:src "/js/cljs.js"}]
    [:script {:src "/js/bootstrap.min.js"}]
