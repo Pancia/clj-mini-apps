@@ -174,6 +174,7 @@
 (defn play-ttt
   [{:keys [regions board] :as state}
    {:keys [x y]}]
+  (do (jq/html ($ "#ttt-status") ""))
   (let [tile (:tile (tile->region regions [x y]))]
     (if (and (not= [nil nil] tile)
              (not (get-in board tile)))
