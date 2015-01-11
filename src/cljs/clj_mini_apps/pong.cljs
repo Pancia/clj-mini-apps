@@ -17,8 +17,6 @@
 (def ball-speed 2)
 
 (defn init-game []
-  (log "init-game")
-
   (do
     (q/rect-mode :corner)
     ;Create background and outline
@@ -42,14 +40,12 @@
 
 (defn move-player-paddle
   [state direction]
-  ;(log "move-player-paddle")
   (if (= direction :down)
     (update-in state [:player :y] + speed)
     (update-in state [:player :y] - speed)))
 
 (defn start-game
   [state]
-  ;(log "start-game")
   (if (= 2 (count (:ball state)))
     (as-> state state
       (assoc-in state [:ball :x-dir] (rand-nth [+ -]))
@@ -59,7 +55,6 @@
 
 (defn update-ball
   [state]
-  ;(log "update-ball")
   (if (:is-running? state)
     (as-> state state
       (update-in state [:ball :y] (:y-dir (:ball state)) ball-speed)
@@ -67,7 +62,6 @@
     state))
 
 (defn handle-input [state]
-  ;(log "handle-input")
   (condp = (q/key-as-keyword)
     :w (move-player-paddle state :up)
     :s (move-player-paddle state :down)
@@ -80,23 +74,29 @@
 (defn on-collision [state]
   (let [ball-x (:x (:ball state))
         ball-y (:y (:ball state))
-        top-wall (+ 9 7.5)
-        btm-wall (- 490 7.5)
-        new-y-dir (if (= + (:y-dir (:ball state))) - +)]
-    ;Check wall collision
-    (if (not (and (> ball-y top-wall)
-                  (< ball-y btm-wall)))
-      (as-> state state
-        (assoc-in state [:ball :y-dir] new-y-dir)
-        (if (= (:y-dir (:ball state)) +)
-          (assoc-in state [:ball :y] top-wall)
-          (assoc-in state [:ball :y] btm-wall)))
-      state)))
+        top-wall (+ 2 (+ 9 7.5))
+        btm-wall (- (- 490 7.5) 2)
+        not-dir #({+ -, - +} %)]
+    (cond
+      ;;check w/ top/btm walls
+      (not (and (> ball-y top-wall)
+                (< ball-y btm-wall)))
+      (update-in state [:ball :y-dir] not-dir)
+
+      ;;check w/ player paddle
+      (< ball-x (+ (:x (:player state))
+                   paddle-width))
+      (update-in state [:ball :x-dir] not-dir)
+
+      ;;check w/ cpu paddle
+      (> ball-x (- (:x (:computer state))
+                   paddle-width))
+      (update-in state [:ball :x-dir] not-dir)
+
+      :else state)))
 
 (defn draw-game
   [state]
-  ;(log "draw-game")
-
   (do
     (q/rect-mode :corner)
     (q/fill 255)
