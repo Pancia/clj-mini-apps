@@ -27,6 +27,10 @@
                      display:block"}]
    [:h3 {:id "ttt-status"
         :style "text-align:center"} ""]
+   [:h4 {:style "text-align:center"}
+       "A classic game of Tic Tac Toe! Three in a row wins!" [:br {}]
+       "Just left click to place your piece."]
+   [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
    [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
    [:script {:src "/js/cljs.js"}]
    [:script {:src "/js/bootstrap.min.js"}]

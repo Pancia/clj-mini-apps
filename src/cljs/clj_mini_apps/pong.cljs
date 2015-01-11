@@ -14,7 +14,7 @@
 
 (def paddle-height 100)
 
-(def speed 7)
+(def speed 5)
 
 (defn init-game []
   (do
@@ -46,9 +46,28 @@
 
 (defn move-player-paddle
   [state direction]
-  (if (= direction :down)
-    (update-in state [:player :y] + speed)
-    (update-in state [:player :y] - speed)))
+  (let [half-height (/ paddle-height 2)
+        player-y (:y (:player state))]
+    (case direction
+      :down (if (>= (+ half-height player-y speed) 490)
+              (assoc-in state [:player :y] (- 489.5 half-height))
+              (update-in state [:player :y] + speed))
+      :up   (if (<= (- player-y half-height speed) 9)
+              (assoc-in state [:player :y] (+ half-height 8.5))
+              (update-in state [:player :y] - speed))
+      state)))
+
+(defn move-cpu-paddle
+  [state]
+  (let [half-height (/ paddle-height 2)
+        cpu-y (:y (:cpu state))]
+    (if (> (:y (state :ball)) cpu-y)
+      (if (>= (+ half-height cpu-y) speed) 490)
+              (assoc-in state [:cpu :y] (- 489.5 half-height))
+              (update-in state [:cpu :y] + speed))
+      (if (<= (- cpu-y half-height speed) 9)
+              (assoc-in state [:cpu :y] (+ half-height 8.5))
+              (update-in state [:cpu :y] - speed))))
 
 (defn start-game
   [state]
@@ -69,13 +88,16 @@
     state))
 
 (defn handle-input
-  [state]
+  [pressed state]
+  (log (str "k = " (when pressed :up)))
   (condp = (q/key-as-keyword)
-    :w (move-player-paddle state :up)
-    :s (move-player-paddle state :down)
-    (keyword " ") (-> state
-                      (update-in [:is-running?] not)
-                      (start-game))
+    :w (assoc-in state [:player :dir] (when pressed :up))
+    :s (assoc-in state [:player :dir] (when pressed :down))
+    (keyword " ") (if pressed
+                    (-> state
+                        (update-in [:is-running?] not)
+                        (start-game))
+                    state)
     :r (init-game)
     state))
 
@@ -97,14 +119,20 @@
            (> ball-x (- (:x (:player state)) paddle-width))
            (< ball-y (+ (:y (:player state)) 50))
            (> ball-y (- (:y (:player state)) 50)))
-      (update-in state [:ball :x-dir] not-dir)
+      (as-> state state
+        (update-in state [:ball :x-dir] not-dir)
+        (update-in state [:ball :dy] * 1.05)
+        (update-in state [:ball :dx] * 1.05))
 
       ;;check w/ cpu paddle
       (and (> ball-x (- (:x (:cpu state)) paddle-width))
            (< ball-x (+ (:x (:cpu state)) paddle-width))
            (< ball-y (+ (:y (:cpu state)) 50))
            (> ball-y (- (:y (:cpu state)) 50)))
-      (update-in state [:ball :x-dir] not-dir)
+      (as-> state state
+        (update-in state [:ball :x-dir] not-dir)
+        (update-in state [:ball :dy] * 1.05)
+        (update-in state [:ball :dx] * 1.05))
 
       :else state)))
 
@@ -112,6 +140,7 @@
   [state]
   (do
     (q/rect-mode :corner)
+    (q/background 209 209 210)
     (q/fill 255)
     (q/rect 9 9 1082 482)
     ;Create paddles and ball
@@ -146,6 +175,8 @@
   (if (:is-running? state)
     (-> state
         (update-ball)
+        (move-player-paddle (:dir (state :player)))
+        (move-cpu-paddle)
         (on-collision)
         (check-win))
     state))
@@ -153,7 +184,8 @@
 (q/defsketch pong-canvas
   :size [1100 500]
   :setup init-game
-  :key-pressed handle-input
+  :key-pressed (partial handle-input true)
   :draw draw-game
+  :key-released (partial handle-input false)
   :update update-game
   :middleware [m/fun-mode])
