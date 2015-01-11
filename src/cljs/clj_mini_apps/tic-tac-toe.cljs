@@ -20,24 +20,27 @@
   (q/rect 370 79 9 441)
   (q/rect 79 220 441 9)
   (q/rect 79 370 441 9)
-  (q/rect-mode CENTER)
+  (q/rect-mode :center)
+  {:rects []})
 
 (defn draw 
   [{:keys [:rects]}]
   (q/fill 255 0 0)
   (doseq [{:keys [x y w h]} rects]
-    (q/rect x y w h)))
+    (q/rect x y w h))
+  {:keys [x y w h]})
 
 (defn add-rect
-  [state {:keys [x y]}]
-  (log state)
-  (log mouse-x)
-  (update-in state [:rects]
-             conj {:x mouse-x :y mouse-y :w 10 :h 10}))
+  [state event]
+  (log (q/mouse-x))
+  (log (q/mouse-y))
+  (q/fill 255 0 0)
+  (q/rect (q/mouse-x) (q/mouse-y) 10 10))
+  ;(update-in state [:rects]
+   ;          conj {:x (q/mouse-x) :y (q/mouse-y) :w 10 :h 10}))
 
 (q/defsketch hello
-  :setup setup
-  :draw draw
   :host "canvas"
   :size [600 600]
+  :setup setup
   :mouse-pressed add-rect)
