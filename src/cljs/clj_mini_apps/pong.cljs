@@ -80,21 +80,17 @@
 (defn on-collision [state]
   (let [ball-x (:x (:ball state))
         ball-y (:y (:ball state))
-        new-y-dir (if (= + (:y-dir (:ball state))) - +)
-        _ (log (str (new-y-dir 0 1)))]
-    (log "on-collision")
+        top-wall (+ 9 7.5)
+        btm-wall (- 490 7.5)
+        new-y-dir (if (= + (:y-dir (:ball state))) - +)]
     ;Check wall collision
-    (if (not (and (> ((:y-dir (state :ball)) ball-speed ball-y)
-                     (+ 9 7.5))
-                  (< ((:y-dir (state :ball)) ball-speed ball-y)
-                     (- 490 7.5))))
+    (if (not (and (> ball-y top-wall)
+                  (< ball-y btm-wall)))
       (as-> state state
         (assoc-in state [:ball :y-dir] new-y-dir)
-        (if (= (:y-dir state) -)
-          (assoc-in state [:ball :y] 50)
-          (assoc-in state [:ball :y] 450))
-        ;(update-in state [:ball :x] (:x-dir (:ball state)) ball-speed)
-        )
+        (if (= (:y-dir (:ball state)) +)
+          (assoc-in state [:ball :y] top-wall)
+          (assoc-in state [:ball :y] btm-wall)))
       state)))
 
 (defn draw-game
