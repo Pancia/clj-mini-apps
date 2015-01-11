@@ -10,6 +10,7 @@
 
 (defn init-board []
   ;Create background and outline
+  (q/smooth)
   (q/background 209 209 210)
   (q/fill 255)
   (q/no-stroke)
@@ -23,35 +24,52 @@
   (q/rect-mode :center))
 
 (def board
-  [[nil nil nil]
-   [nil nil nil]
-   [nil nil nil]])
+  (atom
+    [[nil nil nil]
+     [nil nil nil]
+     [nil nil nil]]))
 
-(def borders
-  (map #(assoc % :w 141 :h 141)
-    [{:top-left {:x 0 :y 0}}
-     {:top-mid {:x 229 :y 0}}
-     {:top-right {:x 379 :y 0}}
-     {:mid-left {:x 0 :y 229}}
-     {:mid-mid {:x 229 :y 229}}
-     {:mid-right {:x 379 :y 229}}
-     {:btm-left {:x 0 :y 379}}
-     {:btm-mid {:x 229 :y 379}}
-     {:btm-right {:x 379 :y 379}}]))
+(def cells
+  (for [x [79 229 379]
+        y [79 229 379]
+        :let [[bx by] [(+ x 70)
+                       (+ y 70)]
+              [row col] [(dec (quot bx 141))
+                         (dec (quot by 141))]]]
+    {:x x :y y
+     :w 141 :h 141
+     :center [bx by] :tile [row col]}))
+
+(defn is-in-cell?
+  [{:keys [x y w h]} [mx my]]
+  (and (> mx x)
+       (< mx (+ x w))
+       (> my y)
+       (< my (+ y h))))
+
+(defn mouse->cell
+  [[mx my]]
+  (->> cells
+       (filter #(is-in-cell? % [mx my]))
+       (first)))
 
 (defn add-circle
-  []
-  (log (q/mouse-x))
-  (log (q/mouse-y))
-  (q/fill 255 0 0)
-  (q/ellipse (q/mouse-x) (q/mouse-y) 100 100)
-  (q/fill 255)
-  (q/ellipse (q/mouse-x) (q/mouse-y) 90 90))
-  ;(update-in state [:rects]
-  ;          conj {:x (q/mouse-x) :y (q/mouse-y) :w 10 :h 10}))
+  [mx my]
+  (let [[x y] (:center (mouse->cell [mx my]))]
+    (when (every? identity [x y])
+      (q/fill (q/random 255) (q/random 255) (q/random 255))
+      (q/ellipse x y 100 100)
+      (q/fill 255)
+      (q/ellipse x y 90 90))))
+
+(defn play-ttt []
+  (let [[mx my] [(q/mouse-x) (q/mouse-y)]
+        [tx ty] (:tile (mouse->cell [mx my]))]
+    (if true
+      (add-circle mx my))))
 
 (q/defsketch hello
   :host "canvas"
   :size [600 600]
   :setup init-board
-  :mouse-pressed add-circle)
+  :mouse-pressed play-ttt)
