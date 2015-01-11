@@ -7,5 +7,5 @@
     (do (log "splash init")
         (jq/bind ($ "#clickme") :click
                  #(set! (.-location js/window)
-                        "http://localhost:3000/games/tic-tac-toe")))
+                        "http://localhost:3000/games")))
     (do (log "failed to init splash"))))

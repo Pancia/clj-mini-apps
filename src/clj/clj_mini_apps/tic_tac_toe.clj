@@ -8,13 +8,13 @@
 
   [:body
    [:h1 {:style "color:white;
-                text-align:center"} "Tic Tac Toe"
-    [:canvas {:id "canvas"
+                text-align:center"} "Tic Tac Toe"]
+   [:canvas {:id "canvas"
               :width 600
               :height 600
               :style "margin-left:auto;
                       margin-right:auto;
-                      display:block"}]]
+                      display:block"}]
    [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
    [:script {:src "/js/cljs.js"}]
    [:script "clj_mini_apps.tic_tac_toe.init();"]])

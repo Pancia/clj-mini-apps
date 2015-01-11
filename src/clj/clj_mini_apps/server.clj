@@ -5,8 +5,9 @@
             [hiccup.def :refer [defhtml]]
             [compojure.core :refer :all]
 
-            [clj-mini-apps.splash :refer :all]
-            [clj-mini-apps.tic-tac-toe :refer :all]))
+            [clj-mini-apps.splash :refer [splash]]
+            [clj-mini-apps.tic-tac-toe :refer [tic-tac-toe]]
+            [clj-mini-apps.games :refer [games]]))
 
 (defroutes main-routes
   (GET "/" []
@@ -14,6 +15,9 @@
 
   (GET "/games/tic-tac-toe" []
        (tic-tac-toe))
+
+  (GET "/games" []
+    (games))
 
   (route/resources "/")
 
