@@ -33,12 +33,16 @@
     (q/rect 1040 250 paddle-width paddle-height)
     (q/ellipse 550 250 ball-size ball-size))
 
-  {:player {:x 59 :y 250}
-   :cpu    {:x 1040 :y 250}
-   :ball   {:x 550 :y 250
-            :dx (+ 1 (rand-nth (range 3)))
-            :dy (+ 1 (rand-nth (range 3)))}
-   :is-running? false})
+  (let [deg (rand-nth (concat (range 135 225)
+                              (range 0 45)
+                              (range 315 359)))]
+    (log (str deg \- (apply str (take 4 (str (q/radians deg))))))
+    {:player {:x 59 :y 250}
+     :cpu    {:x 1040 :y 250}
+     :ball   {:x 550 :y 250
+              :dx (- (* 4 (q/cos (q/radians deg))))
+              :dy    (* 4 (q/sin (q/radians deg)))}
+     :is-running? false}))
 
 (defn move-player-paddle
   [state direction]
