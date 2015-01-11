@@ -12,7 +12,7 @@
   (GET "/" []
        (splash))
 
-  (GET "/games/tic-tac-toe"  []
+  (GET "/games/tic-tac-toe" []
        (tic-tac-toe))
 
   (route/resources "/")
