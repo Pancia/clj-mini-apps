@@ -74,8 +74,8 @@
 (defn on-collision [state]
   (let [ball-x (:x (:ball state))
         ball-y (:y (:ball state))
-        top-wall (+ 2 (+ 9 7.5))
-        btm-wall (- (- 490 7.5) 2)
+        top-wall (+ 9 7.5 2)
+        btm-wall (- 490 7.5 2)
         not-dir #({+ -, - +} %)]
     (cond
       ;;check w/ top/btm walls
@@ -84,8 +84,12 @@
       (update-in state [:ball :y-dir] not-dir)
 
       ;;check w/ player paddle
-      (< ball-x (+ (:x (:player state))
-                   paddle-width))
+      (and (< ball-x (+ (:x (:player state))
+                        paddle-width))
+           (< ball-y (+ (:y (:player state))
+                        50))
+           (> ball-y (- (:y (:player state))
+                        50)))
       (update-in state [:ball :x-dir] not-dir)
 
       ;;check w/ cpu paddle
