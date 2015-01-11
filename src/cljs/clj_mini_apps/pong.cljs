@@ -78,8 +78,8 @@
 (defn on-collision [state]
   (let [ball-x (:x (:ball state))
         ball-y (:y (:ball state))
-        top-wall (+ 2 (+ 9 7.5))
-        btm-wall (- (- 490 7.5) 2)
+        top-wall (+ 2 (+ 9 (/ ball-size 2)))
+        btm-wall (- (- 490 (/ ball-size 2)) 2)
         not-dir #({+ -, - +} %)]
     (cond
       ;;check w/ top/btm walls
@@ -110,9 +110,9 @@
     (q/rect-mode :center))
 
   (q/rect ((state :player) :x)
-          ((state :player) :y) 20 100)
+          ((state :player) :y) paddle-width paddle-height)
   (q/rect ((state :computer) :x)
-          ((state :computer) :y) 20 100)
+          ((state :computer) :y) paddle-width paddle-height)
   (q/ellipse ((state :ball) :x)
              ((state :ball) :y) ball-size ball-size))
 
