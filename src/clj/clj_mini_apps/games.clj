@@ -40,6 +40,12 @@
 			      :type "button"
 				  :class "btn btn-default btn-lg"}
 				  "Play Lift-Off!"]
+		[:br {}]
+		[:br {}]
+	    [:button {:id "tetris-button"
+			      :type "button"
+				  :class "btn btn-default btn-lg"}
+				  "Play Tetris!"]
 		[:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
    		[:script {:src "/js/bootstrap.min.js"}]
     	[:script {:src "/js/cljs.js"}]])

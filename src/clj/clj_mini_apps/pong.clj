@@ -29,8 +29,7 @@
    [:h3 {:id "pong-status"
         :style "text-align:center"} ""]
    [:h4 {:style "text-align:center"}
-        "Try to keep the ball from getting past you! You are the left 
-        paddle."]
+        "Try to keep the ball from getting past you! You are the left paddle."]
    [:h4 {:style "text-align:center"}
         "CONTROLS:" [:br {}]
         "w - Move paddle up" [:br {}]
