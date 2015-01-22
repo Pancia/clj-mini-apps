@@ -6,6 +6,7 @@
    [:meta {:http-equiv "Content-type"
            :content "text/html; charset=utf-8"}]
    [:title "Clojure Test Website"]
+   [:link {:rel "shortcut icon" :href "/images/logo.png"}]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    [:link {:rel "stylesheet" :href "/css/splash.css"}]]
 

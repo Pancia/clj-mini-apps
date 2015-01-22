@@ -4,6 +4,7 @@
 (defhtml pong []
   [:head
    [:title "Pong"]
+   [:link {:rel "shortcut icon" :href "/images/logo.png"}]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    [:link {:rel "stylesheet" :href "/css/splash.css"}]]
 
@@ -28,7 +29,7 @@
    [:h3 {:id "pong-status"
         :style "text-align:center"} ""]
    [:h4 {:style "text-align:center"}
-        "Try to keep the ball from getting past you! You are the margin-left 
+        "Try to keep the ball from getting past you! You are the left 
         paddle."]
    [:h4 {:style "text-align:center"}
         "CONTROLS:" [:br {}]

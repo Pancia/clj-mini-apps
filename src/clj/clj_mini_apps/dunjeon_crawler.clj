@@ -1,9 +1,9 @@
-(ns clj-mini-apps.brutish-pong
+(ns clj-mini-apps.dunjeon-crawler
 	(:require [hiccup.def :refer [defhtml]]))
 
-(defhtml brutish-pong []
+(defhtml dunjeon-crawler []
   [:head
-   [:title "Brutish Pong"]
+   [:title "Dunjeon Crawler"]
    [:link {:rel "shortcut icon" :href "/images/logo.png"}]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    [:link {:rel "stylesheet" :href "/css/splash.css"}]]
@@ -21,12 +21,12 @@
           [:a {:href ""} "Gallery"]]
         [:li {:role "presentation"}
           [:a {:href ""} "About Us"]]]]
-   [:h1 {:style "text-align:center"} "Brutish Pong"]
-   [:canvas {:id "brutish-pong-canvas"
-             :style "margin-left:auto;
-                     margin-right:auto;
-                     display:block"}]
-   [:h3 {:id "brutish-pong-status"
+   [:h1 {:style "text-align:center"} "Dunjeon Crawler"]
+   [:applet {:code "rouje_like.core.desktop_launcher.class"
+             :archive "/dunjeon-crawler"
+             :width 200
+             :height 200}]
+   [:h3 {:id "dunjeon-crawler-status"
         :style "text-align:center"} ""]
    [:h4 {:style "text-align:center"}
         "Try to keep the ball from getting past you! You are the margin-left 
@@ -40,4 +40,4 @@
    [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
    [:script {:src "/js/cljs.js"}]
    [:script {:src "/js/bootstrap.min.js"}]
-   [:script "clj_mini_apps.brutish_pong.init();"]])
+   [:script "clj_mini_apps.dunjeon-crawler.init();"]])

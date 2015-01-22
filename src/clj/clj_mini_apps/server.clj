@@ -8,7 +8,9 @@
             [clj-mini-apps.splash :refer [splash]]
             [clj-mini-apps.pong :refer [pong]]
             [clj-mini-apps.tic-tac-toe :refer [tic-tac-toe]]
+            [clj-mini-apps.lift-off :refer [lift-off]]
             [clj-mini-apps.games :refer [games]]
+            [clj-mini-apps.dunjeon-crawler :refer [dunjeon-crawler]]
             [clj-mini-apps.brutish-pong :refer [brutish-pong]]))
 
 (defroutes main-routes
@@ -18,8 +20,14 @@
   (GET "/games/tic-tac-toe" []
        (tic-tac-toe))
 
+  (GET "/games/dunjeon-crawler" []
+       (dunjeon-crawler))
+
   (GET "/games/brutish-pong" []
        (brutish-pong))
+
+  (GET "/games/lift-off" []
+       (lift-off))
 
   (GET "/games" []
     (games))

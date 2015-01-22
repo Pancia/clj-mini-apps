@@ -4,6 +4,7 @@
 (defhtml tic-tac-toe []
   [:head
    [:title "Tic Tac Toe"]
+   [:link {:rel "shortcut icon" :href "/images/logo.png"}]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    [:link {:rel "stylesheet" :href "/css/splash.css"}]]
 

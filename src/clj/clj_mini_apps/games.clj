@@ -6,6 +6,7 @@
 		[:meta {:http-equiv "Content-type"
            :content "text/html; charset=utf-8"}]
     	[:title "Games"]
+    	[:link {:rel "shortcut icon" :href "/images/logo.png"}]
     	[:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    		[:link {:rel "stylesheet" :href "/css/splash.css"}]]
 	[:body
@@ -33,6 +34,12 @@
 			      :type "button"
 				  :class "btn btn-default btn-lg"}
 				  "Play Pong!"]
+		[:br {}]
+		[:br {}]
+	    [:button {:id "lo-button"
+			      :type "button"
+				  :class "btn btn-default btn-lg"}
+				  "Play Lift-Off!"]
 		[:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
    		[:script {:src "/js/bootstrap.min.js"}]
     	[:script {:src "/js/cljs.js"}]])
