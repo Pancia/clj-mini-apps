@@ -161,15 +161,6 @@
         (update-in state [:ball :dx] * speed-factor)
         (assoc-in state [:ball :x] player-front))
 
-      ;;check w/ top of player paddle
-      ;;(and (<= ball-x player-front)
-      ;;     (>= ball-x player-back)
-      ;;     (<= ball-y (+ player-top offset))
-      ;;     (>= ball-y (- player-top offset)))
-      ;;(as-> state state
-      ;;  (update-in state [:ball :y-dir] not-dir)
-      ;;  (assoc-in state [:ball :y] player-top))
-
       ;;check w/ front of cpu paddle
       (and (>= ball-x (- cpu-front offset))
            (<= ball-x (+ cpu-front offset))
@@ -227,13 +218,25 @@
         (update-ball)
         (on-collision)
         (check-win))
-    state))
+    state)) 
+
+(defn init-menu-screen []
+  (do
+    (q/rect-mode :corner)
+    (q/no-stroke)
+    (q/smooth)
+    (q/background 209 209 210)
+    (q/fill 255)
+    (q/text-font (q/load-font "/fonts/SimplySquare.ttf"))
+    (q/rect outline-size outline-size 
+      (- screen-width (* 2 outline-size)) (- screen-height (* 2 outline-size)))
+    (q/text "Pong", (/ screen-width 2), (/ screen-height 4))))
 
 (q/defsketch pong-canvas
   :size [screen-width screen-height]
-  :setup init-game
-  :key-pressed (partial handle-input true)
-  :draw draw-game
-  :key-released (partial handle-input false)
-  :update update-game
+  :setup init-menu-screen
+  ;;:key-pressed (partial handle-input true)
+  ;;:draw draw-game
+  ;;:key-released (partial handle-input false)
+  ;;:update update-game
   :middleware [m/fun-mode])

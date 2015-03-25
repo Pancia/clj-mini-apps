@@ -4,7 +4,7 @@
 (defhtml lift-off []
   [:head
    [:title "Lift-Off"]
-   [:link {:rel "shortcut icon" :href "/images/logo.png"}]
+   [:link {:rel "shortcut icon" :href "/images/game controller logo small.png"}]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    [:link {:rel "stylesheet" :href "/css/splash.css"}]]
 
