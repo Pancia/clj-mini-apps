@@ -15,7 +15,7 @@
 		    [:li {:role "presentation"}
 		      [:a {:href "/"} "Home"]]
 		    [:li {:role "presentation"}
-		      [:a {:href ""} "Games"]]
+		      [:a {:href "/games"} "Games"]]
 		    [:li {:role "presentation"}
 		      [:a {:href "/blog"} "Blog"]]
 		    [:li {:role "presentation"}
