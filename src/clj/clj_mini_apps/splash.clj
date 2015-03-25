@@ -15,15 +15,15 @@
       [:ul {:class "nav nav-pills"}
         [:li {:class "active"
               :role "presentation"}
-          [:a {:href ""} "Home"]]
+          [:a {:href "/"} "Home"]]
         [:li {:role "presentation"}
-          [:a {:href "games"} "Games"]]
+          [:a {:href "/games"} "Games"]]
         [:li {:role "presentation"}
-          [:a {:href ""} "Blog"]]
+          [:a {:href "/blog"} "Blog"]]
         [:li {:role "presentation"}
-          [:a {:href ""} "Gallery"]]
+          [:a {:href "/gallery"} "Gallery"]]
         [:li {:role "presentation"}
-          [:a {:href ""} "About Us"]]]]
+          [:a {:href "/about-us"} "About Us"]]]]
     [:p {:style "color:black"} "Welcome to the home page!"]
     [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
     [:script {:src "/js/bootstrap.min.js"}]

@@ -18,11 +18,11 @@
 				  :class "active"}
 		      [:a {:href ""} "Games"]]
 		    [:li {:role "presentation"}
-		      [:a {:href ""} "Blog"]]
+		      [:a {:href "/blog"} "Blog"]]
 		    [:li {:role "presentation"}
-		      [:a {:href ""} "Gallery"]]
+		      [:a {:href "/gallery"} "Gallery"]]
 		    [:li {:role "presentation"}
-		      [:a {:href ""} "About Us"]]]]
+		      [:a {:href "/about-us"} "About Us"]]]]
 		[:p "Welcome to the Games Page!"]
 		[:button {:id "ttt-button"
 			      :type "button"

@@ -11,6 +11,9 @@
             [clj-mini-apps.lift-off        :refer [lift-off]]
             [clj-mini-apps.dunjeon-crawler :refer [dunjeon-crawler]]
             [clj-mini-apps.games           :refer [games]]
+            [clj-mini-apps.blog            :refer [blog]]
+            [clj-mini-apps.gallery         :refer [gallery]]
+            [clj-mini-apps.about-us        :refer [about-us]]
             [clj-mini-apps.brutish-pong    :refer [brutish-pong]]
             [clj-mini-apps.tetris          :refer [tetris]]))
 
@@ -18,8 +21,17 @@
   (GET "/" []
        (splash))
 
+  (GET "/gallery" []
+       (gallery))
+
+  (GET "/about-us" []
+       (about-us))
+
+  (GET "/blog" []
+       (blog))
+
   (GET "/games" []
-    (games))
+        (games))
 
   (GET "/games/tic-tac-toe" []
        (tic-tac-toe))

@@ -16,11 +16,11 @@
         [:li {:role "presentation"}
           [:a {:href "/games"} "Games"]]
         [:li {:role "presentation"}
-          [:a {:href ""} "Blog"]]
+          [:a {:href "/blog"} "Blog"]]
         [:li {:role "presentation"}
-          [:a {:href ""} "Gallery"]]
+          [:a {:href "/gallery"} "Gallery"]]
         [:li {:role "presentation"}
-          [:a {:href ""} "About Us"]]]]
+          [:a {:href "/about-us"} "About Us"]]]]
    [:h1 {:style "text-align:center"} "Dunjeon Crawler"]
    [:applet {:code "rouje_like.core.desktop_launcher.class"
              :archive "/dunjeon-crawler"
