@@ -3,7 +3,7 @@
 
 (defhtml lift-off []
   [:head
-   [:title "Lift-Off"]
+   [:title "Lift-Off | Clojure Mini Apps"]
    [:link {:rel "shortcut icon" :href "/images/game controller logo small.png"}]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    [:link {:rel "stylesheet" :href "/css/splash.css"}]]

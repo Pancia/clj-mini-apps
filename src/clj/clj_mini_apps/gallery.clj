@@ -5,7 +5,7 @@
 	[:head
 		[:meta {:http-equiv "Content-type"
            :content "text/html; charset=utf-8"}]
-    	[:title "Gallery"]
+    	[:title "Gallery | Clojure Mini Apps"]
     	[:link {:rel "shortcut icon" :href "/images/game controller logo small.png"}]
     	[:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    		[:link {:rel "stylesheet" :href "/css/splash.css"}]]

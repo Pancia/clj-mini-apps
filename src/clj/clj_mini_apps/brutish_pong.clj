@@ -3,7 +3,7 @@
 
 (defhtml brutish-pong []
   [:head
-   [:title "Brutish Pong"]
+   [:title "Brutish Pong | Clojure Mini Apps"]
    [:link {:rel "shortcut icon" :href "/images/game controller logo small.png"}]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    [:link {:rel "stylesheet" :href "/css/splash.css"}]]

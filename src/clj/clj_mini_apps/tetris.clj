@@ -3,7 +3,7 @@
 
 (defhtml tetris []
   [:head
-   [:title "Tetris"]
+   [:title "Tetris | Clojure Mini Apps"]
    [:link {:rel "stylesheet" :href "/css/bootstrap.min.css"}]
    [:link {:rel "stylesheet" :href "/css/splash.css"}]
    [:link {:rel "shortcut icon" :href "/images/game controller logo small.png"}]]
