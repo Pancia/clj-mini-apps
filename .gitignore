@@ -13,3 +13,4 @@ resources/public/js/cljs.js
 
 processing.js
 *.db
+*.xcf
