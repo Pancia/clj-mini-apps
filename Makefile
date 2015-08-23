@@ -16,6 +16,8 @@ clean:
 	lein clean
 
 help:
-	make -rpn | sed -n -e '/^$$/ { n ; /^[^ ]*:/p; }' | sort | egrep --color '^[^ ]*:'
+	@ echo "[HELP]: Run auto-compile for cljs->js & make[ start] to start server"
+	@ make -rpn | sed -n -e '/^$$/ { n ; /^[^ ]*:/p; }' | sort | egrep --color '^[^ ]*:'
+
 .PHONY:
 	help start lint
