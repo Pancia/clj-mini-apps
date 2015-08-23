@@ -10,26 +10,27 @@
             [clj-mini-apps.tic-tac-toe  :refer [tic-tac-toe]]
             [clj-mini-apps.games        :refer [games]]
             [clj-mini-apps.brutish-pong :refer [brutish-pong]]
-            [clj-mini-apps.tetris       :refer [tetris]]))
+            [clj-mini-apps.tetris       :refer [tetris]]
+            [clj-mini-apps.template     :refer [template]]))
 
 (defroutes main-routes
   (GET "/" []
-       (splash))
+       (template splash))
 
   (GET "/games" []
-    (games))
+       (template games))
 
   (GET "/games/tic-tac-toe" []
-       (tic-tac-toe))
+       (template tic-tac-toe))
 
   (GET "/games/pong" []
-    (pong))
+       (template pong))
 
   (GET "/games/brutish-pong" []
-       (brutish-pong))
+       (template brutish-pong))
 
   (GET "/games/tetris" []
-       (tetris))
+       (template tetris))
 
   (route/resources "/")
 
