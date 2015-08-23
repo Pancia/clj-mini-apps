@@ -8,7 +8,7 @@ pom.xml.asc
 /.lein-*
 /.nrepl-port
 
-resources/public/js/cljs.js
+resources/public/js/*
 *.xml
 
 processing.js
