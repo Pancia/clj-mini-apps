@@ -5,7 +5,8 @@
   [:head
    head
    [:link {:rel "stylesheet" :href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"}]
-   [:link {:rel "stylesheet" :href "/css/splash.css"}]]
+   [:link {:rel "stylesheet" :href "/css/splash.css"}]
+   [:link {:rel "shortcut icon" :href "/images/game controller logo small.png"}]]
 
   [:body
    [:div

@@ -1,10 +1,10 @@
 (ns clj-mini-apps.tic-tac-toe)
 
 (def tic-tac-toe
-  {:head [:title "Tic Tac Toe"]
+  {:head [:title "Tic Tac Toe | Clojure Mini Apps"]
 
    :page
-   [:div {:class "ttt-page"}
+   [:div {:class "page ttt-page"}
     [:h1 {:style "text-align:center"} "Tic Tac Toe"]
     [:canvas {:id "ttt-canvas"
               :style "margin-left:auto;

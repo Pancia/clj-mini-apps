@@ -10,49 +10,66 @@
 
 (def ball-size 15)
 
+;; Factor at which speed is updated when contact is made with paddle
+(def speed-factor 1.05)
+
 (def paddle-width 20)
 
 (def paddle-height 100)
 
+(def screen-width 1100)
+
+(def screen-height 500)
+
+(def paddle-to-wall-dist 100)
+
+(def outline-size 9)
+
 (def speed 5)
 
 (defn init-game []
-  (do
-    (q/rect-mode :corner)
-    ;Create background and outline
-    (q/frame-rate 60)
-    (q/smooth)
-    (q/background 209 209 210)
-    (q/fill 255)
-    (q/no-stroke)
-    (q/rect 9 9 1082 482)
-    ;Create paddles and ball
-    (q/fill 0)
-    (q/rect-mode :center)
-    (q/rect 59 250 paddle-width paddle-height)
-    (q/rect 1040 250 paddle-width paddle-height)
-    (q/ellipse 550 250 ball-size ball-size))
+  (let [half-screen-height (/ screen-height 2)
+        half-screen-width (/ screen-width 2)
+        player-x (+ paddle-to-wall-dist outline-size)
+        cpu-x (- screen-width outline-size paddle-to-wall-dist)]
+    (do
+      (q/rect-mode :corner)
+      ;Create background and outline
+      (q/frame-rate 60)
+      (q/smooth)
+      (q/background 209 209 210)
+      (q/fill 255)
+      (q/no-stroke)
+      (q/rect outline-size outline-size (- screen-width (* 2 outline-size))
+              (- screen-height (* 2 outline-size)))
+      ;Create paddles and ball
+      (q/fill 0)
+      (q/rect-mode :center)
+      (q/rect player-x half-screen-height paddle-width paddle-height)
+      (q/rect cpu-x half-screen-height paddle-width paddle-height)
+      (q/ellipse half-screen-width half-screen-height ball-size ball-size))
 
-  (let [deg (rand-nth (concat (range 135 225)
-                              (range 0 45)
-                              (range 315 359)))]
-    {:player {:x 59 :y 250}
-     :cpu    {:x 1040 :y 250}
-     :ball   {:x 550 :y 250
-              :dx (- (* 4 (q/cos (q/radians deg))))
-              :dy    (* 4 (q/sin (q/radians deg)))}
-     :is-running? false}))
+    (let [deg (rand-nth (concat (range 135 225)
+                                (range 0 45)
+                                (range 315 359)))]
+      {:player {:x player-x :y half-screen-height}
+       :cpu    {:x cpu-x :y half-screen-height}
+       :ball   {:x half-screen-width :y half-screen-height
+                :dx (- (* 4 (q/cos (q/radians deg))))
+                :dy    (* 4 (q/sin (q/radians deg)))}
+       :is-running? false})))
 
 (defn move-player-paddle
   [state direction]
   (let [half-height (/ paddle-height 2)
         player-y (:y (:player state))]
     (case direction
-      :down (if (>= (+ half-height player-y speed) 490)
-              (assoc-in state [:player :y] (- 489.5 half-height))
+      :down (if (>= (+ half-height player-y speed) (- screen-height outline-size))
+              (assoc-in state [:player :y]
+                        (- screen-height outline-size half-height))
               (update-in state [:player :y] + speed))
-      :up   (if (<= (- player-y half-height speed) 9)
-              (assoc-in state [:player :y] (+ half-height 8.5))
+      :up   (if (<= (- player-y half-height speed) outline-size)
+              (assoc-in state [:player :y] (+ half-height outline-size))
               (update-in state [:player :y] - speed))
       state)))
 
@@ -61,12 +78,23 @@
   (let [half-height (/ paddle-height 2)
         cpu-y (:y (:cpu state))]
     (if (> (:y (state :ball)) cpu-y)
-      (if (>= (+ half-height cpu-y speed) 490)
-              (assoc-in state [:cpu :y] (- 489.5 half-height))
-              (update-in state [:cpu :y] + (/ speed 2)))
-      (if (<= (- cpu-y half-height speed) 9)
-              (assoc-in state [:cpu :y] (+ half-height 8.5))
-              (update-in state [:cpu :y] - (/ speed 2))))))
+      (if (>= (+ half-height cpu-y speed) (- screen-height outline-size))
+        (assoc-in state [:cpu :y]
+                  (- screen-height outline-size half-height))
+        (update-in state [:cpu :y] + (/ speed 2)))
+      (if (<= (- cpu-y half-height speed) outline-size)
+        (assoc-in state [:cpu :y] (+ half-height outline-size))
+        (update-in state [:cpu :y] - (/ speed 2))))))
+
+(defn update-ball
+  [state]
+  (let [x-fn (:x-dir (:ball state))
+        y-fn (:y-dir (:ball state))]
+    (if (:is-running? state)
+      (as-> state state
+        (update-in state [:ball :y] y-fn (:dy (:ball state)))
+        (update-in state [:ball :x] x-fn (:dx (:ball state))))
+      state)))
 
 (defn start-game
   [state]
@@ -78,17 +106,8 @@
       (update-ball state))
     state))
 
-(defn update-ball
-  [state]
-  (if (:is-running? state)
-    (as-> state state
-      (update-in state [:ball :y] (:y-dir (:ball state)) (:dy (:ball state)))
-      (update-in state [:ball :x] (:x-dir (:ball state)) (:dx (:ball state))))
-    state))
-
 (defn handle-input
   [pressed state]
-  (log (str "k = " (when pressed :up)))
   (condp = (q/key-as-keyword)
     :w (assoc-in state [:player :dir] (when pressed :up))
     :s (assoc-in state [:player :dir] (when pressed :down))
@@ -104,8 +123,26 @@
   [state]
   (let [ball-x (:x (:ball state))
         ball-y (:y (:ball state))
-        top-wall (+ 9 7.5 2)
-        btm-wall (- 490 7.5 2)
+        ball-rad (/ ball-size 2)
+        offset (if (neg? (* (:dx (:ball state)) .9))
+                 (- 0 (* (:dx (:ball state)) .9))
+                 (* (:dx (:ball state)) .9))
+        half-height (/ paddle-height 2)
+        half-width (/ paddle-width 2)
+        player-x (:x (:player state))
+        player-y (:y (:player state))
+        player-front (+ player-x half-width)
+        player-back(- player-x half-width)
+        player-top (- player-y half-height)
+        player-bottom (+ player-y half-height)
+        cpu-x (:x (:cpu state))
+        cpu-y (:y (:cpu state))
+        cpu-front (- cpu-x half-width)
+        cpu-back(+ cpu-x half-width)
+        cpu-top (- cpu-y half-height)
+        cpu-bottom (+ cpu-y half-height)
+        top-wall (+ 9 ball-rad offset)
+        btm-wall (- 490 ball-rad offset)
         not-dir #({+ -, - +} %)]
     (cond
       ;;check w/ top/btm walls
@@ -113,25 +150,27 @@
                 (< ball-y btm-wall)))
       (update-in state [:ball :y-dir] not-dir)
 
-      ;;check w/ player paddle
-      (and (< ball-x (+ (:x (:player state)) paddle-width))
-           (> ball-x (- (:x (:player state)) paddle-width))
-           (< ball-y (+ (:y (:player state)) 50))
-           (> ball-y (- (:y (:player state)) 50)))
+      ;;check w/ front of player paddle
+      (and (<= ball-x (+ player-front offset))
+           (>= ball-x (- player-front offset))
+           (<= ball-y player-bottom)
+           (>= ball-y player-top))
       (as-> state state
         (update-in state [:ball :x-dir] not-dir)
-        (update-in state [:ball :dy] * 1.05)
-        (update-in state [:ball :dx] * 1.05))
+        (update-in state [:ball :dy] * speed-factor)
+        (update-in state [:ball :dx] * speed-factor)
+        (assoc-in state [:ball :x] player-front))
 
-      ;;check w/ cpu paddle
-      (and (> ball-x (- (:x (:cpu state)) paddle-width))
-           (< ball-x (+ (:x (:cpu state)) paddle-width))
-           (< ball-y (+ (:y (:cpu state)) 50))
-           (> ball-y (- (:y (:cpu state)) 50)))
+      ;;check w/ front of cpu paddle
+      (and (>= ball-x (- cpu-front offset))
+           (<= ball-x (+ cpu-front offset))
+           (<= ball-y cpu-bottom)
+           (>= ball-y cpu-top))
       (as-> state state
         (update-in state [:ball :x-dir] not-dir)
-        (update-in state [:ball :dy] * 1.05)
-        (update-in state [:ball :dx] * 1.05))
+        (update-in state [:ball :dy] * speed-factor)
+        (update-in state [:ball :dx] * speed-factor)
+        (assoc-in state [:ball :x] cpu-front))
 
       :else state)))
 
@@ -141,7 +180,8 @@
     (q/rect-mode :corner)
     (q/background 209 209 210)
     (q/fill 255)
-    (q/rect 9 9 1082 482)
+    (q/rect outline-size outline-size
+            (- screen-width (* 2 outline-size)) (- screen-height (* 2 outline-size)))
     ;Create paddles and ball
     (q/fill 0)
     (q/rect-mode :center))
@@ -156,9 +196,9 @@
 (defn get-winner
   [state]
   (let [ball-x (:x (state :ball))]
-    (if (< ball-x 0)
+    (if (< ball-x (+ outline-size (/ ball-size 2)))
       "The CPU"
-      (if (> ball-x 1099)
+      (if (> ball-x (- screen-width outline-size (/ ball-size 2)))
         "You"))))
 
 (defn check-win
@@ -166,25 +206,37 @@
   (if-let [winner (get-winner state)]
     (do (jq/html ($ "#pong-status")
                  (str winner " Won! Press space to start a new game..."))
-    (init-game))
+        (init-game))
     state))
 
 (defn update-game
   [state]
   (if (:is-running? state)
     (-> state
-        (update-ball)
         (move-player-paddle (:dir (state :player)))
         (move-cpu-paddle)
+        (update-ball)
         (on-collision)
         (check-win))
     state))
 
+(defn init-menu-screen []
+  (do
+    (q/rect-mode :corner)
+    (q/no-stroke)
+    (q/smooth)
+    (q/background 209 209 210)
+    (q/fill 255)
+    (q/text-font (q/load-font "/fonts/SimplySquare.ttf"))
+    (q/rect outline-size outline-size
+            (- screen-width (* 2 outline-size)) (- screen-height (* 2 outline-size)))
+    (q/text "Pong", (/ screen-width 2), (/ screen-height 4))))
+
 (q/defsketch pong-canvas
-  :size [1100 500]
-  :setup init-game
-  :key-pressed (partial handle-input true)
-  :draw draw-game
-  :key-released (partial handle-input false)
-  :update update-game
+  :size [screen-width screen-height]
+  :setup init-menu-screen
+  ;;:key-pressed (partial handle-input true)
+  ;;:draw draw-game
+  ;;:key-released (partial handle-input false)
+  ;;:update update-game
   :middleware [m/fun-mode])

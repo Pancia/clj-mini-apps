@@ -2,7 +2,7 @@
 	(:require [hiccup.def :refer [defhtml]]))
 
 (def brutish-pong
-  {:head [:title "Pong"]
+  {:head [:title "Brutish Pong | Clojure Mini Apps"]
 
    :page
    [:div {:class "brutish-pong"}

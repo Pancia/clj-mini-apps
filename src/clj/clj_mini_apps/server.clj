@@ -5,17 +5,31 @@
             [hiccup.def :refer [defhtml]]
             [compojure.core :refer :all]
 
-            [clj-mini-apps.splash       :refer [splash]]
-            [clj-mini-apps.pong         :refer [pong]]
-            [clj-mini-apps.tic-tac-toe  :refer [tic-tac-toe]]
-            [clj-mini-apps.games        :refer [games]]
-            [clj-mini-apps.brutish-pong :refer [brutish-pong]]
-            [clj-mini-apps.tetris       :refer [tetris]]
-            [clj-mini-apps.template     :refer [template]]))
+            [clj-mini-apps.template     :refer [template]]
+            [clj-mini-apps.splash          :refer [splash]]
+            [clj-mini-apps.pong            :refer [pong]]
+            [clj-mini-apps.tic-tac-toe     :refer [tic-tac-toe]]
+            [clj-mini-apps.lift-off        :refer [lift-off]]
+            [clj-mini-apps.dunjeon-crawler :refer [dunjeon-crawler]]
+            [clj-mini-apps.games           :refer [games]]
+            [clj-mini-apps.blog            :refer [blog]]
+            [clj-mini-apps.gallery         :refer [gallery]]
+            [clj-mini-apps.about-us        :refer [about-us]]
+            [clj-mini-apps.brutish-pong    :refer [brutish-pong]]
+            [clj-mini-apps.tetris          :refer [tetris]]))
 
 (defroutes main-routes
   (GET "/" []
        (template splash))
+
+  (GET "/gallery" []
+       (template gallery))
+
+  (GET "/about-us" []
+       (template about-us))
+
+  (GET "/blog" []
+       (template blog))
 
   (GET "/games" []
        (template games))
@@ -23,11 +37,17 @@
   (GET "/games/tic-tac-toe" []
        (template tic-tac-toe))
 
+  (GET "/games/dunjeon-crawler" []
+       (template dunjeon-crawler))
+
   (GET "/games/pong" []
        (template pong))
 
   (GET "/games/brutish-pong" []
        (template brutish-pong))
+
+  (GET "/games/lift-off" []
+       (template lift-off))
 
   (GET "/games/tetris" []
        (template tetris))

@@ -9,6 +9,9 @@
   (jq/bind ($ "#pong-button") :click
            #(set! (.-location js/window)
                   "http://localhost:3000/games/pong"))
+  (jq/bind ($ "#lo-button") :click
+           #(set! (.-location js/window)
+                  "http://localhost:3000/games/lift-off"))
   (jq/bind ($ "#tetris-button") :click
            #(set! (.-location js/window)
                   "http://localhost:3000/games/tetris")))

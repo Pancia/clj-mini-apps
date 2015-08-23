@@ -1,7 +1,7 @@
 (ns clj-mini-apps.tetris)
 
 (def tetris
-  {:head [:title "Tetris"]
+  {:head [:title "Tetris | Clojure Mini Apps"]
 
    :page
    [:div {:class "tetris-page"}
@@ -19,3 +19,5 @@
      "space - starts and pauses game \n" [:br {}]]]
 
    :tail [:script "clj_mini_apps.tetris.init();"]})
+
+

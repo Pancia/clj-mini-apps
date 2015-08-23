@@ -2,7 +2,7 @@
   (:require [hiccup.def :refer [defhtml]]))
 
 (def games
-  {:head [:title "Games"]
+  {:head [:title "Games | Clojure Mini Apps"]
 
    :page
    [:div {:class "page games-page"}
@@ -17,6 +17,12 @@
               :type "button"
               :class "btn btn-default btn-lg"}
      "Play Pong!"]
+    [:br {}]
+    [:br {}]
+    [:button {:id "lo-button"
+              :type "button"
+              :class "btn btn-default btn-lg"}
+     "Play Lift-Off!"]
     [:br {}]
     [:br {}]
     [:button {:id "tetris-button"

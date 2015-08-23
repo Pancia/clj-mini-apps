@@ -2,10 +2,10 @@
   (:require [hiccup.def :refer [defhtml]]))
 
 (def splash
-  {:head [:title "Clojure Test Website"]
+  {:head [:title "Welcome | Clojure Mini Apps"]
 
    :page
-   [:div
+   [:div {:class "page splash-page"}
     [:p {:style "color:black"}
      "Welcome to the home page!"]]
 
