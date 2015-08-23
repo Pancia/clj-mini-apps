@@ -62,19 +62,11 @@
         cpu-y (:y (:cpu state))]
     (if (> (:y (state :ball)) cpu-y)
       (if (>= (+ half-height cpu-y speed) 490)
-<<<<<<< HEAD
         (assoc-in state [:cpu :y] (- 489.5 half-height))
         (update-in state [:cpu :y] + speed))
       (if (<= (- cpu-y half-height speed) 9)
         (assoc-in state [:cpu :y] (+ half-height 8.5))
         (update-in state [:cpu :y] - speed)))))
-=======
-              (assoc-in state [:cpu :y] (- 489.5 half-height))
-              (update-in state [:cpu :y] + speed))
-      (if (<= (- cpu-y half-height speed) 9)
-              (assoc-in state [:cpu :y] (+ half-height 8.5))
-              (update-in state [:cpu :y] - speed)))))
->>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
 
 (defn start-game
   [state]
@@ -174,11 +166,7 @@
   (if-let [winner (get-winner state)]
     (do (jq/html ($ "#brutish-pong-status")
                  (str winner " Won! Press space to start a new game..."))
-<<<<<<< HEAD
         (init-game))
-=======
-    (init-game))
->>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
     state))
 
 (defn update-game

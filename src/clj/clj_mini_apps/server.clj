@@ -5,10 +5,7 @@
             [hiccup.def :refer [defhtml]]
             [compojure.core :refer :all]
 
-<<<<<<< HEAD
-            [clj-mini-apps.template     :refer [template]]
-=======
->>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
+            [clj-mini-apps.template        :refer [template]]
             [clj-mini-apps.splash          :refer [splash]]
             [clj-mini-apps.pong            :refer [pong]]
             [clj-mini-apps.tic-tac-toe     :refer [tic-tac-toe]]
@@ -44,11 +41,7 @@
        (blog))
 
   (GET "/games" []
-<<<<<<< HEAD
        (template games))
-=======
-        (games))
->>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
 
   (GET "/games/tic-tac-toe" []
        (template tic-tac-toe))

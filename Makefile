@@ -1,8 +1,11 @@
 SHELL 	       := /bin/bash
 
 start:
-	lein cljsbuild auto &
+	lein cljsbuild once
 	lein ring server-headless
+
+auto-compile:
+	lein cljsbuild auto
 
 lint:
 	lein eastwood
