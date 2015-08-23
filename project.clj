@@ -8,8 +8,13 @@
                  [compojure "1.4.0"]
                  [jayq "2.5.4"]
                  [hiccup "1.0.5"]
+<<<<<<< HEAD
                  [cljs-ajax "0.3.14"]
                  [quil "2.2.6"]
+=======
+                 [cljs-ajax "0.3.4"]
+                 [quil "2.2.4"]
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
                  [brute "0.2.0"]]
   :plugins [[lein-cljsbuild "1.0.3"]
             [lein-ring "0.8.11"]]

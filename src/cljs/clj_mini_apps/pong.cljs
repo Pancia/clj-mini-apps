@@ -40,15 +40,24 @@
       (q/background 209 209 210)
       (q/fill 255)
       (q/no-stroke)
+<<<<<<< HEAD
       (q/rect outline-size outline-size (- screen-width (* 2 outline-size))
               (- screen-height (* 2 outline-size)))
+=======
+      (q/rect outline-size outline-size (- screen-width (* 2 outline-size)) 
+                                        (- screen-height (* 2 outline-size)))
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
       ;Create paddles and ball
       (q/fill 0)
       (q/rect-mode :center)
       (q/rect player-x half-screen-height paddle-width paddle-height)
       (q/rect cpu-x half-screen-height paddle-width paddle-height)
       (q/ellipse half-screen-width half-screen-height ball-size ball-size))
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
     (let [deg (rand-nth (concat (range 135 225)
                                 (range 0 45)
                                 (range 315 359)))]
@@ -65,8 +74,13 @@
         player-y (:y (:player state))]
     (case direction
       :down (if (>= (+ half-height player-y speed) (- screen-height outline-size))
+<<<<<<< HEAD
               (assoc-in state [:player :y]
                         (- screen-height outline-size half-height))
+=======
+              (assoc-in state [:player :y] 
+                (- screen-height outline-size half-height))
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
               (update-in state [:player :y] + speed))
       :up   (if (<= (- player-y half-height speed) outline-size)
               (assoc-in state [:player :y] (+ half-height outline-size))
@@ -79,12 +93,31 @@
         cpu-y (:y (:cpu state))]
     (if (> (:y (state :ball)) cpu-y)
       (if (>= (+ half-height cpu-y speed) (- screen-height outline-size))
+<<<<<<< HEAD
         (assoc-in state [:cpu :y]
                   (- screen-height outline-size half-height))
         (update-in state [:cpu :y] + (/ speed 2)))
       (if (<= (- cpu-y half-height speed) outline-size)
         (assoc-in state [:cpu :y] (+ half-height outline-size))
         (update-in state [:cpu :y] - (/ speed 2))))))
+
+(defn update-ball
+  [state]
+  (let [x-fn (:x-dir (:ball state))
+        y-fn (:y-dir (:ball state))]
+    (if (:is-running? state)
+      (as-> state state
+        (update-in state [:ball :y] y-fn (:dy (:ball state)))
+        (update-in state [:ball :x] x-fn (:dx (:ball state))))
+      state)))
+=======
+              (assoc-in state [:cpu :y] 
+                (- screen-height outline-size half-height))
+              (update-in state [:cpu :y] + (/ speed 2)))
+      (if (<= (- cpu-y half-height speed) outline-size)
+              (assoc-in state [:cpu :y] (+ half-height outline-size))
+              (update-in state [:cpu :y] - (/ speed 2))))))
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
 
 (defn update-ball
   [state]
@@ -125,8 +158,13 @@
         ball-y (:y (:ball state))
         ball-rad (/ ball-size 2)
         offset (if (neg? (* (:dx (:ball state)) .9))
+<<<<<<< HEAD
                  (- 0 (* (:dx (:ball state)) .9))
                  (* (:dx (:ball state)) .9))
+=======
+                   (- 0 (* (:dx (:ball state)) .9))
+                   (* (:dx (:ball state)) .9))
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
         half-height (/ paddle-height 2)
         half-width (/ paddle-width 2)
         player-x (:x (:player state))
@@ -180,8 +218,13 @@
     (q/rect-mode :corner)
     (q/background 209 209 210)
     (q/fill 255)
+<<<<<<< HEAD
     (q/rect outline-size outline-size
             (- screen-width (* 2 outline-size)) (- screen-height (* 2 outline-size)))
+=======
+    (q/rect outline-size outline-size 
+      (- screen-width (* 2 outline-size)) (- screen-height (* 2 outline-size)))
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
     ;Create paddles and ball
     (q/fill 0)
     (q/rect-mode :center))
@@ -218,7 +261,19 @@
         (update-ball)
         (on-collision)
         (check-win))
-    state))
+    state)) 
+
+(defn init-menu-screen []
+  (do
+    (q/rect-mode :corner)
+    (q/no-stroke)
+    (q/smooth)
+    (q/background 209 209 210)
+    (q/fill 255)
+    (q/text-font (q/load-font "/fonts/SimplySquare.ttf"))
+    (q/rect outline-size outline-size 
+      (- screen-width (* 2 outline-size)) (- screen-height (* 2 outline-size)))
+    (q/text "Pong", (/ screen-width 2), (/ screen-height 4))))
 
 (defn init-menu-screen []
   (do

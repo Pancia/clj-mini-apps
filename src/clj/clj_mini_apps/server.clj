@@ -5,7 +5,10 @@
             [hiccup.def :refer [defhtml]]
             [compojure.core :refer :all]
 
+<<<<<<< HEAD
             [clj-mini-apps.template     :refer [template]]
+=======
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
             [clj-mini-apps.splash          :refer [splash]]
             [clj-mini-apps.pong            :refer [pong]]
             [clj-mini-apps.tic-tac-toe     :refer [tic-tac-toe]]
@@ -31,14 +34,30 @@
   (GET "/blog" []
        (template blog))
 
+  (GET "/gallery" []
+       (gallery))
+
+  (GET "/about-us" []
+       (about-us))
+
+  (GET "/blog" []
+       (blog))
+
   (GET "/games" []
+<<<<<<< HEAD
        (template games))
+=======
+        (games))
+>>>>>>> e18291381ea2f716e9ce6419bc31fe93e7a72f00
 
   (GET "/games/tic-tac-toe" []
        (template tic-tac-toe))
 
   (GET "/games/dunjeon-crawler" []
        (template dunjeon-crawler))
+
+  (GET "/games/dunjeon-crawler" []
+       (dunjeon-crawler))
 
   (GET "/games/pong" []
        (template pong))
@@ -48,6 +67,9 @@
 
   (GET "/games/lift-off" []
        (template lift-off))
+
+  (GET "/games/lift-off" []
+       (lift-off))
 
   (GET "/games/tetris" []
        (template tetris))
