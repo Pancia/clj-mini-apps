@@ -1,7 +1,7 @@
 (ns clj-mini-apps.lift-off)
 
 (def lift-off
-  {:head [:title "Lift-Off | Clojure Mini Apps"]
+  {:title "Lift-Off"
 
    :page
    [:div {:class "page lift-off-page"}
@@ -18,6 +18,4 @@
     [:h4 {:style "text-align:center"}
      "CONTROLS:" [:br {}]
      "Up - Move ship up" [:br {}]
-     "space - starts and pauses game \n" [:br {}]]]
-
-   :tail [:script "clj_mini_apps.pong.init();"]})
+     "space - starts and pauses game \n" [:br {}]]]})

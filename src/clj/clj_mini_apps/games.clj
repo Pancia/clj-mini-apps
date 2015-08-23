@@ -1,7 +1,7 @@
 (ns clj-mini-apps.games)
 
 (def games
-  {:head [:title "Games | Clojure Mini Apps"]
+  {:title "Games"
 
    :page
    [:div {:class "page games-page"}

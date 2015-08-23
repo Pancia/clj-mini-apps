@@ -1,7 +1,7 @@
 (ns clj-mini-apps.brutish-pong)
 
 (def brutish-pong
-  {:head [:title "Brutish Pong | Clojure Mini Apps"]
+  {:title "Brutish Pong"
 
    :page
    [:div {:class "brutish-pong"}
@@ -20,6 +20,4 @@
      "w - Move paddle up" [:br {}]
      "s - Move paddle down" [:br {}]
      "r - restarts game" [:br {}]
-     "space - starts and pauses game \n" [:br {}]]]
-
-   :tail [:script "clj_mini_apps.brutish_pong.init();"]})
+     "space - starts and pauses game \n" [:br {}]]]})

@@ -1,7 +1,7 @@
 (ns clj-mini-apps.pong)
 
 (def pong
-  {:head [:title "Pong | Clojure Mini Apps"]
+  {:title "Pong"
 
    :page
    [:div {:class "pong-page"}
@@ -20,6 +20,4 @@
      "w - Move paddle up" [:br {}]
      "s - Move paddle down" [:br {}]
      "r - restarts game" [:br {}]
-     "space - starts and pauses game \n" [:br {}]]]
-
-   :tail [:script "clj_mini_apps.pong.init();"]})
+     "space - starts and pauses game \n" [:br {}]]]})

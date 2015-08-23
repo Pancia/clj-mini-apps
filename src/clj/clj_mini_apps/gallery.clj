@@ -1,7 +1,7 @@
 (ns clj-mini-apps.gallery)
 
 (def gallery
-  {:head [:title "Gallery | Clojure Mini Apps"]
+  {:title "Gallery"
 
    :page
    [:div {:class "page gallery-page"}

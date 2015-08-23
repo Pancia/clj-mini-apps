@@ -1,7 +1,7 @@
 (ns clj-mini-apps.dunjeon-crawler)
 
 (def dunjeon-crawler
-  {:head [:title "Dunjeon Crawler | Clojure Mini Apps"]
+  {:title "Dunjeon Crawler"
 
    :page
    [:div {:class "page dunjeon-crawler-page"}
@@ -20,6 +20,4 @@
      "w - Move paddle up" [:br {}]
      "s - Move paddle down" [:br {}]
      "r - restarts game" [:br {}]
-     "space - starts and pauses game \n" [:br {}]]]
-
-   :tail [:script "clj_mini_apps.dunjeon-crawler.init();"]})
+     "space - starts and pauses game \n" [:br {}]]]})

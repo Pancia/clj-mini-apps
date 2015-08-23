@@ -1,7 +1,7 @@
 (ns clj-mini-apps.tic-tac-toe)
 
 (def tic-tac-toe
-  {:head [:title "Tic Tac Toe | Clojure Mini Apps"]
+  {:title "Tic Tac Toe"
 
    :page
    [:div {:class "page ttt-page"}
@@ -14,6 +14,4 @@
           :style "text-align:center"} ""]
     [:h4 {:style "text-align:center"}
      "A classic game of Tic Tac Toe! Three in a row wins!" [:br {}]
-     "Just left click to place your piece."]]
-
-   :tail [:script "clj_mini_apps.tic_tac_toe.init();"]})
+     "Just left click to place your piece."]]})

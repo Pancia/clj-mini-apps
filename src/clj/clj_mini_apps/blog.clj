@@ -1,6 +1,6 @@
 (ns clj-mini-apps.blog)
 
 (def blog
-  {:head [:title "Blog | Clojure Mini Apps"]
+  {:title "Blog"
 
    :page [:p "Welcome to the Blog!"]})

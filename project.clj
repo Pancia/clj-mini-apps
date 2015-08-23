@@ -12,6 +12,7 @@
                  [hiccup "1.0.5"]
                  [cljs-ajax "0.3.14"]
                  [quil "2.2.6"]
+                 [camel-snake-kebab "0.3.2"]
                  [quiescent "0.2.0-alpha1"]
                  [brute "0.2.0"]]
   :plugins [[lein-cljsbuild "1.0.3"]
