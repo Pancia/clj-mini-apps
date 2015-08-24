@@ -7,11 +7,12 @@
                  [org.clojure/clojurescript "1.7.107"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [org.clojure/core.match "0.3.0-alpha4"]
+                 [http-kit "2.1.19"]
                  [compojure "1.4.0"]
                  [ring "1.4.0"]
                  [jayq "2.5.4"]
                  [hiccup "1.0.5"]
-                 [cljs-ajax "0.3.14"]
+                 [com.taoensso/sente "1.6.0"] ;core.async => ajax/websocket
                  [quil "2.2.6"]
                  [camel-snake-kebab "0.3.2"]
                  [quiescent "0.2.0-alpha1"]
