@@ -2,6 +2,7 @@
 
 (def splash
   {:title "Splash"
+   :template-ns "splash.core"
 
    :page
    [:div {:class "page splash-page"}

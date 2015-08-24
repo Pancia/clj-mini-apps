@@ -2,7 +2,7 @@
   (:require [hiccup.def :refer [defhtml]]
             [camel-snake-kebab.core :as conv]))
 
-(defhtml template [{:keys [title page]}]
+(defhtml template [{:keys [title page template-ns]}]
   [:head
    [:title (str title " | Clojure Mini Apps")]
    [:link {:rel "stylesheet" :href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"}]
@@ -29,4 +29,7 @@
     [:script {:src "http://code.jquery.com/jquery-2.1.3.min.js"}]
     [:script {:src "/js/cljs.js"}]
     [:script {:src "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"}]
-    [:script (str "clj_mini_apps." (conv/->snake_case_string title) ".init();")]]])
+    [:script (str "clj_mini_apps."
+                  (conv/->snake_case_string
+                    (or template-ns title))
+                  ".init();")]]])
