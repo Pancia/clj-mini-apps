@@ -31,7 +31,7 @@
                         (nth configs dir))]
       (doall (map f config)))))
 
-(defn init []
+(defn init-fn []
   (do
     (q/rect-mode :corner)
     (q/frame-rate 8)
@@ -64,7 +64,7 @@
 
     ((lift-fn draw-rect) (:player state))))
 
-(defn update
+(defn update-fn
   [state]
   (if (:is-running? state)
     (as-> state state
@@ -91,9 +91,9 @@
 
 (q/defsketch tetris-canvas
   :size [1100 500]
-  :setup init
+  :setup init-fn
   :key-pressed (handle-input true)
   :draw draw
   :key-released (handle-input false)
-  :update update
+  :update update-fn
   :middleware [m/fun-mode])

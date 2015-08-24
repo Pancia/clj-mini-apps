@@ -8,6 +8,18 @@
   (when (and js/document (.-getElementById js/document))
     (do (log "dunjeon-crawler init"))))
 
+(defn init-game []
+  5)
+
+(defn draw-game []
+  3)
+
+(defn update-game []
+  6)
+
+(defn handle-input []
+  1)
+
 (q/defsketch brutish-pong-canvas
   :size [1100 500]
   :setup init-game

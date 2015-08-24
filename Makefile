@@ -7,6 +7,9 @@ start:
 auto-compile:
 	lein cljsbuild auto
 
+test:
+	lein test
+
 lint:
 	lein eastwood
 	lein kibit
@@ -19,5 +22,4 @@ help:
 	@ echo "[HELP]: Run auto-compile for cljs->js & make[ start] to start server"
 	@ make -rpn | sed -n -e '/^$$/ { n ; /^[^ ]*:/p; }' | sort | egrep --color '^[^ ]*:'
 
-.PHONY:
-	help start lint
+.PHONY: start auto-compile lint test clean help

@@ -8,6 +8,7 @@
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [org.clojure/core.match "0.3.0-alpha4"]
                  [compojure "1.4.0"]
+                 [ring "1.4.0"]
                  [jayq "2.5.4"]
                  [hiccup "1.0.5"]
                  [cljs-ajax "0.3.14"]
@@ -17,17 +18,19 @@
                  [brute "0.2.0"]]
   :plugins [[lein-cljsbuild "1.0.3"]
             [lein-ring "0.8.11"]]
+  :profiles {:dev {:dependencies [[clj-webdriver "0.7.2"
+                                   :exclusions [org.seleniumhq.selenium/selenium-server]]
+                                  [org.seleniumhq.selenium/selenium-server "2.47.0"]]}}
   :source-paths ["src/clj"]
   :cljsbuild {:builds
-              [{:source-paths ["src/cljs"],
-                :id "main",
-                :compiler {:optimizations :whitespace
-                           :output-dir    "resources/public/js"
-                           :output-to     "resources/public/js/cljs.js"
-                           :preamble      ["processing.js"]
-                           :externs       ["js/jquery.min.js"]
-                           :pretty-print  true
-                           :source-map    "resources/public/js/cljs.js.map"}}]}
+              {:main {:source-paths ["src/cljs"],
+                      :compiler {:optimizations :whitespace
+                                 :output-dir    "resources/public/js"
+                                 :output-to     "resources/public/js/cljs.js"
+                                 :preamble      ["processing.js"]
+                                 :externs       []
+                                 :pretty-print  true
+                                 :source-map    "resources/public/js/cljs.js.map"}}}}
   :main clj-mini-apps.server
   :ring {:handler clj-mini-apps.server/app
          :auto-refresh? true})

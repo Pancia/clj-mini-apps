@@ -68,6 +68,14 @@
         (assoc-in state [:cpu :y] (+ half-height 8.5))
         (update-in state [:cpu :y] - speed)))))
 
+(defn update-ball
+  [state]
+  (if (:is-running? state)
+    (as-> state state
+      (update-in state [:ball :y] (:y-dir (:ball state)) (:dy (:ball state)))
+      (update-in state [:ball :x] (:x-dir (:ball state)) (:dx (:ball state))))
+    state))
+
 (defn start-game
   [state]
   (do (jq/html ($ "#brutish-pong-status") ""))
@@ -76,14 +84,6 @@
       (assoc-in state [:ball :x-dir] (rand-nth [+ -]))
       (assoc-in state [:ball :y-dir] (rand-nth [+ -]))
       (update-ball state))
-    state))
-
-(defn update-ball
-  [state]
-  (if (:is-running? state)
-    (as-> state state
-      (update-in state [:ball :y] (:y-dir (:ball state)) (:dy (:ball state)))
-      (update-in state [:ball :x] (:x-dir (:ball state)) (:dx (:ball state))))
     state))
 
 (defn handle-input
