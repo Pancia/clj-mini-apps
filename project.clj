@@ -31,7 +31,18 @@
                                  :preamble      ["processing.js"]
                                  :externs       []
                                  :pretty-print  true
-                                 :source-map    "resources/public/js/cljs.js.map"}}}}
+                                 :source-map    "resources/public/js/cljs.js.map"}}
+               :test {:source-paths ["src/cljs" "test/cljs"]
+                      :notify-command ["phantomjs"
+                                      "test-resources/test.js"
+                                      "test-resources/test.html"]
+                      :compiler {:optimizations :whitespace
+                                 :pretty-print true
+                                 :preamble ["processing.js"]
+                                 :output-to "target/cljs/test.js"}}}
+              :test-commands {"test" ["phantomjs"
+                                      "test-resources/test.js"
+                                      "test-resources/test.html"]}}
   :main clj-mini-apps.server
   :ring {:handler clj-mini-apps.server/app
          :auto-refresh? true})
